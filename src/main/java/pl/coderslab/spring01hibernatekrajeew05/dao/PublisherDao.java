@@ -21,8 +21,4 @@ public class PublisherDao {
     public Publisher findById(long id) {
         return em.find(Publisher.class, id);
     }
-
-    public void readBooks(Publisher p) {
-        Hibernate.initialize(p.getBooks());
-    }
 }

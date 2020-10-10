@@ -22,14 +22,4 @@ public class PublisherController {
     public PublisherController(PublisherDao publisherDao) {
         this.publisherDao = publisherDao;
     }
-
-    @GetMapping("/books/{publisherId}")
-    @ResponseBody
-    @Transactional
-    public String getBookById(@PathVariable long publisherId){
-        Publisher p = publisherDao.findById(publisherId);
-        publisherDao.readBooks(p);
-
-        return p.getBooks().toString();
-    }
 }
