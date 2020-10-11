@@ -11,6 +11,8 @@ import pl.coderslab.spring01hibernatekrajeew05.dao.PublisherDao;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Book;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Publisher;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/book")
 public class BookController {
@@ -64,5 +66,21 @@ public class BookController {
         Book b = bookDao.findById(id);
 
         return b.toString();
+    }
+
+    @GetMapping("/all")
+    @ResponseBody
+    public String getAll(){
+        List<Book> books = bookDao.findAll();
+
+        return books.toString();
+    }
+
+    @GetMapping("/byminrating/{minRating}")
+    @ResponseBody
+    public String getAll(@PathVariable int minRating){
+        List<Book> books = bookDao.findByRatingGT(minRating);
+
+        return books.toString();
     }
 }
