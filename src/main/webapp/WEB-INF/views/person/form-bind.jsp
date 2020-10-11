@@ -28,6 +28,10 @@
             <form:input path="email" type="email"/>
         </div>
         <div>
+            <label for="hobbies">Hobbies</label>
+            <form:select path="hobbies" items="${hobbies}"/>
+        </div>
+        <div>
             <input type="submit">
         </div>
     </form:form>

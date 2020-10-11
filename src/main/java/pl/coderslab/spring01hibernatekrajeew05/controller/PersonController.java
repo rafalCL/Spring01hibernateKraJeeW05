@@ -5,6 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.spring01hibernatekrajeew05.model.Person;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 @RequestMapping("/person")
 public class PersonController {
@@ -41,5 +44,10 @@ public class PersonController {
         m.addAttribute("person", person);
 
         return "person/show";
+    }
+
+    @ModelAttribute("hobbies")
+    public List<String> hobbies(){
+        return Arrays.asList("narty", "rolki", "zagle");
     }
 }
