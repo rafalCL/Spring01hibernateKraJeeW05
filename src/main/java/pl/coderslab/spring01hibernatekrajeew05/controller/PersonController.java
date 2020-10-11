@@ -2,10 +2,7 @@ package pl.coderslab.spring01hibernatekrajeew05.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.spring01hibernatekrajeew05.model.Person;
 
 @Controller
@@ -28,6 +25,20 @@ public class PersonController {
                 .setEmail(email);
 
         m.addAttribute("person", p);
+
+        return "person/show";
+    }
+
+    @GetMapping("/formbind")
+    public String personFormBind(Model m){
+        m.addAttribute("person", new Person());
+
+        return "person/form-bind";
+    }
+
+    @PostMapping("/formbind")
+    public String personFormBindPost(@ModelAttribute Person person, Model m){
+        m.addAttribute("person", person);
 
         return "person/show";
     }
