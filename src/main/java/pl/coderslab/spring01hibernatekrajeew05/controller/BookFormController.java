@@ -35,7 +35,12 @@ public class BookFormController {
         this.bookDao.save(book);
         m.addAttribute("book", book);
 
-        return "book/show";
+        return "redirect:list";
+    }
+
+    @GetMapping("/list")
+    public String list(){
+        return "book/list";
     }
 
     @ModelAttribute("publishers")
@@ -43,4 +48,8 @@ public class BookFormController {
         return publisherDao.findAll();
     }
 
+    @ModelAttribute("books")
+    public List<Book> books(){
+        return bookDao.findAll();
+    }
 }
