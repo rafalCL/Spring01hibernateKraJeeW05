@@ -10,6 +10,8 @@ public class Publisher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @OneToMany(mappedBy = "publisher")
+    private List<Book> books = new ArrayList<>();
 
     public Publisher(){
 
@@ -29,6 +31,15 @@ public class Publisher {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public Publisher setBooks(List<Book> books) {
+        this.books = books;
+        return this;
     }
 
     @Override
