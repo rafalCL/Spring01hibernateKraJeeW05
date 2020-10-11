@@ -29,7 +29,7 @@
         </div>
         <div>
             <label for="publisher">publisher</label>
-            <form:select path="publisher.id" items="${publishers}" id="publisher" itemLabel="name" itemValue="id"/>
+            <form:select path="publisher" items="${publishers}" id="publisher" itemLabel="name" itemValue="id"/>
         </div>
         <div>
             <input type="submit">
