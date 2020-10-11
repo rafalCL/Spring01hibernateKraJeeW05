@@ -25,7 +25,7 @@
         </div>
         <div>
             <label for="email">Email</label>
-            <form:input path="email"/>
+            <form:input path="email" type="email"/>
         </div>
         <div>
             <input type="submit">
