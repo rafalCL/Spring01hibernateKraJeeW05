@@ -25,6 +25,7 @@ public class PublisherController {
 
     @GetMapping("/books/{publisherId}")
     @ResponseBody
+    @Transactional
     public String getBookById(@PathVariable long publisherId){
         Publisher p = publisherDao.findById(publisherId);
         publisherDao.readBooks(p);

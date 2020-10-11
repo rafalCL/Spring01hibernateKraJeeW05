@@ -34,4 +34,11 @@ public class BookDao {
 
         return q.getResultList();
     }
+
+    public List<Book> findByPublisherId(long publisherId) {
+        Query q = em.createQuery("SELECT b FROM Book b WHERE b.publisher.id = :pubId");
+        q.setParameter("pubId", publisherId);
+
+        return q.getResultList();
+    }
 }

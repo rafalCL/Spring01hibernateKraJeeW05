@@ -83,4 +83,12 @@ public class BookController {
 
         return books.toString();
     }
+
+    @GetMapping("/bypubid/{pubId}")
+    @ResponseBody
+    public String getByPubId(@PathVariable long pubId){
+        List<Book> books = bookDao.findByPublisherId(pubId);
+
+        return books.toString();
+    }
 }

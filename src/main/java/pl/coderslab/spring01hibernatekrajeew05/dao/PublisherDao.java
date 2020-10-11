@@ -22,7 +22,6 @@ public class PublisherDao {
         return em.find(Publisher.class, id);
     }
 
-    @Transactional
     public void readBooks(Publisher p) {
         Hibernate.initialize(p.getBooks());
     }
