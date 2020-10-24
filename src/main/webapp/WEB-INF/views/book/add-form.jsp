@@ -18,18 +18,30 @@
         <div>
             <label for="title">title</label>
             <form:input path="title"/>
+            <form:errors path="title"/>
         </div>
         <div>
             <label for="rating">rating</label>
             <form:input path="rating" type="number" min="0" max="10"/>
+            <form:errors path="rating"/>
         </div>
         <div>
             <label for="description">description</label>
             <form:textarea path="description"/>
+            <form:errors path="description"/>
         </div>
         <div>
             <label for="publisher">publisher</label>
             <form:select path="publisher" items="${publishers}" id="publisher" itemLabel="name" itemValue="id"/>
+            <form:errors path="publisher"/>
+        </div>
+        <div>
+            <label for="pages">pages</label>
+            <form:input path="pages" type="number" min="0"/>
+            <form:errors path="pages"/>
+        </div>
+        <div>
+            <form:errors path="*"/>
         </div>
         <div>
             <input type="submit">
