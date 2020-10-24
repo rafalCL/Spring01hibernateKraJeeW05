@@ -20,7 +20,7 @@ public class Book {
     @Size(max = 600)
     private String description;
     @ManyToOne
-    @NotNull
+    @NotNull(message = "Oh, Dear, this must NOT be null")
     private Publisher publisher;
     @Min(1)
     private int pages;
