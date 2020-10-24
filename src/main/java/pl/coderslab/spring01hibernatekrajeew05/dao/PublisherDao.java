@@ -24,8 +24,18 @@ public class PublisherDao {
         return em.find(Publisher.class, id);
     }
 
-    public void readBooks(Publisher p) {
+    public Publisher findByIdWithBooks(long id) {
+        Publisher p = findById(id);
         Hibernate.initialize(p.getBooks());
+
+        return p;
+    }
+
+    public Publisher readBooks(Publisher p) {
+        p = em.contains(p) ? p : em.merge(p);
+        Hibernate.initialize(p.getBooks());
+
+        return p;
     }
 
     public List<Publisher> findAll() {

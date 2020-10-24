@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pl.coderslab.spring01hibernatekrajeew05.dao.BookDao;
 import pl.coderslab.spring01hibernatekrajeew05.dao.PublisherDao;
-import pl.coderslab.spring01hibernatekrajeew05.entity.Book;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Publisher;
 
 import javax.transaction.Transactional;
@@ -27,8 +25,9 @@ public class PublisherController {
     @ResponseBody
     @Transactional
     public String getBookById(@PathVariable long publisherId){
+//        Publisher p = publisherDao.findByIdWithBooks(publisherId);
         Publisher p = publisherDao.findById(publisherId);
-        publisherDao.readBooks(p);
+        p = publisherDao.readBooks(p);
 
         return p.getBooks().toString();
     }
