@@ -10,7 +10,9 @@ import pl.coderslab.spring01hibernatekrajeew05.dao.BookDao;
 import pl.coderslab.spring01hibernatekrajeew05.dao.PublisherDao;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Book;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Publisher;
+import pl.coderslab.spring01hibernatekrajeew05.repository.BookRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -18,11 +20,13 @@ import java.util.List;
 public class BookController {
     private PublisherDao publisherDao;
     private BookDao bookDao;
+    private BookRepository bookRepository;
 
     @Autowired
-    public BookController(PublisherDao publisherDao, BookDao bookDao) {
+    public BookController(PublisherDao publisherDao, BookDao bookDao, BookRepository bookRepository) {
         this.publisherDao = publisherDao;
         this.bookDao = bookDao;
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping("/addbookwp")
@@ -62,16 +66,20 @@ public class BookController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @Transactional
     public String getBookById(@PathVariable long id){
-        Book b = bookDao.findById(id);
+//        Book b = bookDao.findById(id);
+        Book b = this.bookRepository.getOne(id);
 
         return b.toString();
     }
 
     @GetMapping("/all")
     @ResponseBody
+    @Transactional
     public String getAll(){
-        List<Book> books = bookDao.findAll();
+//        List<Book> books = bookDao.findAll();
+        List<Book> books = this.bookRepository.findAll();
 
         return books.toString();
     }

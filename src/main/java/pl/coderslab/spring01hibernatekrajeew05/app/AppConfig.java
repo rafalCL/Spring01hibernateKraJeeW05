@@ -3,6 +3,7 @@ package pl.coderslab.spring01hibernatekrajeew05.app;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
@@ -26,6 +27,7 @@ import java.util.Locale;
 @ComponentScan("pl.coderslab.spring01hibernatekrajeew05")
 @EnableWebMvc
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "pl.coderslab.spring01hibernatekrajeew05.repository")
 public class AppConfig implements WebMvcConfigurer {
     @Bean
     public ViewResolver viewResolver() {
