@@ -24,6 +24,8 @@ public class Book {
     private Publisher publisher;
     @Min(1)
     private int pages;
+    @ManyToOne
+    private Category category;
 
     public Book(){
 
@@ -83,6 +85,15 @@ public class Book {
         return this;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public Book setCategory(Category category) {
+        this.category = category;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -92,6 +103,7 @@ public class Book {
                 ", description='" + description + '\'' +
                 ", publisher=" + publisher +
                 ", pages=" + pages +
+                ", category=" + category +
                 '}';
     }
 }

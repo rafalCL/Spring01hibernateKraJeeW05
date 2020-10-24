@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.spring01hibernatekrajeew05.dao.BookDao;
 import pl.coderslab.spring01hibernatekrajeew05.dao.PublisherDao;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Book;
+import pl.coderslab.spring01hibernatekrajeew05.entity.Category;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Publisher;
 import pl.coderslab.spring01hibernatekrajeew05.repository.BookRepository;
+import pl.coderslab.spring01hibernatekrajeew05.repository.CategoryRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/book")
@@ -21,12 +24,14 @@ public class BookController {
     private PublisherDao publisherDao;
     private BookDao bookDao;
     private BookRepository bookRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    public BookController(PublisherDao publisherDao, BookDao bookDao, BookRepository bookRepository) {
+    public BookController(PublisherDao publisherDao, BookDao bookDao, BookRepository bookRepository, CategoryRepository categoryRepository) {
         this.publisherDao = publisherDao;
         this.bookDao = bookDao;
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/addbookwp")
@@ -96,6 +101,44 @@ public class BookController {
     @ResponseBody
     public String getByPubId(@PathVariable long pubId){
         List<Book> books = bookDao.findByPublisherId(pubId);
+
+        return books.toString();
+    }
+
+    @GetMapping("/title/{title}")
+    @ResponseBody
+    @Transactional
+    public String getByTitle(@PathVariable String title){
+        Book b = this.bookRepository.findOneByTitle(title);
+
+        return b.toString();
+    }
+
+    @GetMapping("/byCat/{catId}")
+    @ResponseBody
+    @Transactional
+    public String getByCategory(@PathVariable long catId){
+        Category category = this.categoryRepository.getOne(catId);
+
+        List<Book> books = this.bookRepository.findAllByCategory(category);
+
+        return books.toString();
+    }
+
+    @GetMapping("/catId/{catId}")
+    @ResponseBody
+    @Transactional
+    public String getByCategoryId(@PathVariable long catId){
+        List<Book> books = this.bookRepository.findAllByCategoryId(catId);
+
+        return books.toString();
+    }
+
+    @GetMapping("/catName/{catName}")
+    @ResponseBody
+    @Transactional
+    public String getByCategoryId(@PathVariable String catName){
+        List<Book> books = this.bookRepository.findAllByCategoryName(catName);
 
         return books.toString();
     }
