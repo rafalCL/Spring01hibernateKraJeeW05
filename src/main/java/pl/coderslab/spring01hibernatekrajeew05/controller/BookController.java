@@ -16,10 +16,11 @@ import pl.coderslab.spring01hibernatekrajeew05.repository.CategoryRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/book")
+@Transactional
 public class BookController {
     private PublisherDao publisherDao;
     private BookDao bookDao;
@@ -71,7 +72,6 @@ public class BookController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    @Transactional
     public String getBookById(@PathVariable long id){
 //        Book b = bookDao.findById(id);
         Book b = this.bookRepository.getOne(id);
@@ -81,7 +81,6 @@ public class BookController {
 
     @GetMapping("/all")
     @ResponseBody
-    @Transactional
     public String getAll(){
 //        List<Book> books = bookDao.findAll();
         List<Book> books = this.bookRepository.findAll();
@@ -107,7 +106,6 @@ public class BookController {
 
     @GetMapping("/title/{title}")
     @ResponseBody
-    @Transactional
     public String getByTitle(@PathVariable String title){
         Book b = this.bookRepository.findOneByTitle(title);
 
@@ -116,7 +114,6 @@ public class BookController {
 
     @GetMapping("/byCat/{catId}")
     @ResponseBody
-    @Transactional
     public String getByCategory(@PathVariable long catId){
         Category category = this.categoryRepository.getOne(catId);
 
@@ -127,7 +124,6 @@ public class BookController {
 
     @GetMapping("/catId/{catId}")
     @ResponseBody
-    @Transactional
     public String getByCategoryId(@PathVariable long catId){
         List<Book> books = this.bookRepository.findAllByCategoryId(catId);
 
@@ -136,7 +132,6 @@ public class BookController {
 
     @GetMapping("/catName/{catName}")
     @ResponseBody
-    @Transactional
     public String getByCategoryId(@PathVariable String catName){
         List<Book> books = this.bookRepository.findAllByCategoryName(catName);
 
