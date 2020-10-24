@@ -1,6 +1,11 @@
 package pl.coderslab.spring01hibernatekrajeew05.entity;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "books")
@@ -8,11 +13,17 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Size(min = 5)
     private String title;
+    @Range(min = 1, max = 10)
     private int rating;
+    @Size(max = 600)
     private String description;
     @ManyToOne
+    @NotNull
     private Publisher publisher;
+    @Min(1)
+    private int pages;
 
     public Book(){
 
@@ -63,6 +74,15 @@ public class Book {
         return this;
     }
 
+    public int getPages() {
+        return pages;
+    }
+
+    public Book setPages(int pages) {
+        this.pages = pages;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -71,6 +91,7 @@ public class Book {
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
                 ", publisher=" + publisher +
+                ", pages=" + pages +
                 '}';
     }
 }
