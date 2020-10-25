@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.spring01hibernatekrajeew05.dao.BookDao;
 import pl.coderslab.spring01hibernatekrajeew05.dao.PublisherDao;
+import pl.coderslab.spring01hibernatekrajeew05.entity.Author;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Book;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Category;
 import pl.coderslab.spring01hibernatekrajeew05.entity.Publisher;
+import pl.coderslab.spring01hibernatekrajeew05.repository.AuthorRepository;
 import pl.coderslab.spring01hibernatekrajeew05.repository.BookRepository;
 import pl.coderslab.spring01hibernatekrajeew05.repository.CategoryRepository;
 
@@ -26,13 +28,15 @@ public class BookController {
     private BookDao bookDao;
     private BookRepository bookRepository;
     private CategoryRepository categoryRepository;
+    private AuthorRepository authorRepository;
 
     @Autowired
-    public BookController(PublisherDao publisherDao, BookDao bookDao, BookRepository bookRepository, CategoryRepository categoryRepository) {
+    public BookController(PublisherDao publisherDao, BookDao bookDao, BookRepository bookRepository, CategoryRepository categoryRepository, AuthorRepository authorRepository) {
         this.publisherDao = publisherDao;
         this.bookDao = bookDao;
         this.bookRepository = bookRepository;
         this.categoryRepository = categoryRepository;
+        this.authorRepository = authorRepository;
     }
 
     @GetMapping("/addbookwp")
@@ -154,6 +158,16 @@ public class BookController {
         Category category = this.categoryRepository.getOne(catId);
 
         List<Book> books = this.bookRepository.findAllBooksBelongingToCategory(category);
+
+        return books.toString();
+    }
+
+    @GetMapping("/byAuthorCust/{authorId}")
+    @ResponseBody
+    public String getByAuthorCustomQuery(@PathVariable long authorId){
+        Author author = this.authorRepository.getOne(authorId);
+
+        List<Book> books = this.bookRepository.findAllBooksByAuthor(author);
 
         return books.toString();
     }
