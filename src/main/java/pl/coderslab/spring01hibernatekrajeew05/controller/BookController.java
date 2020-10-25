@@ -137,4 +137,24 @@ public class BookController {
 
         return books.toString();
     }
+
+    // below methods to test custom queries in repository
+
+    @GetMapping("/titleCust/{title}")
+    @ResponseBody
+    public String getByTitleCustomQuery(@PathVariable String title){
+        List<Book> books = this.bookRepository.findAllMyFavouriteBooksByTitle(title);
+
+        return books.toString();
+    }
+
+    @GetMapping("/byCatCust/{catId}")
+    @ResponseBody
+    public String getByCategoryCustomQuery(@PathVariable long catId){
+        Category category = this.categoryRepository.getOne(catId);
+
+        List<Book> books = this.bookRepository.findAllBooksBelongingToCategory(category);
+
+        return books.toString();
+    }
 }
