@@ -116,6 +116,7 @@ public class Book {
                 ", publisher=" + publisher +
                 ", pages=" + pages +
                 ", category=" + category +
+                ", authors=" + authors +
                 '}';
     }
 }
