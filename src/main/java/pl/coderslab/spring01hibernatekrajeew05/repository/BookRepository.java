@@ -1,5 +1,6 @@
 package pl.coderslab.spring01hibernatekrajeew05.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,4 +21,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAllBooksBelongingToCategory(@Param("cat") Category category);
     @Query("SELECT b FROM Book b WHERE ?1 MEMBER OF b.authors")
     List<Book> findAllBooksByAuthor(Author author);
+    @Query("SELECT b FROM Book b WHERE b.category = :cat")
+    List<Book> findBooksBelongingToCategoryPageable(@Param("cat") Category category, Pageable pageable);
 }

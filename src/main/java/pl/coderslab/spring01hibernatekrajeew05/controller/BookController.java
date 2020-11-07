@@ -1,6 +1,7 @@
 package pl.coderslab.spring01hibernatekrajeew05.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -158,6 +159,16 @@ public class BookController {
         Category category = this.categoryRepository.getOne(catId);
 
         List<Book> books = this.bookRepository.findAllBooksBelongingToCategory(category);
+
+        return books.toString();
+    }
+
+    @GetMapping("/byCatCustTop2/{catId}")
+    @ResponseBody
+    public String getByCategoryCustomQueryPageable(@PathVariable long catId){
+        Category category = this.categoryRepository.getOne(catId);
+
+        List<Book> books = this.bookRepository.findBooksBelongingToCategoryPageable(category, PageRequest.of(0,2));
 
         return books.toString();
     }
